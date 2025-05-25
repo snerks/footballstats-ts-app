@@ -26,6 +26,40 @@ function App() {
   //     .finally(() => setLoading(false));
   // }, []);
 
+  useEffect(() => {
+    // This is a placeholder for fetching teams. Replace with actual fetch logic.
+    const mockTeams = [
+      // { id: "bristol-city", name: "Bristol City" },
+      { id: "manchester-united", name: "Manchester United" },
+      { id: "liverpool", name: "Liverpool" },
+      { id: "chelsea", name: "Chelsea" },
+      { id: "arsenal", name: "Arsenal" },
+      { id: "tottenham", name: "Tottenham Hotspur" },
+      { id: "manchester-city", name: "Manchester City" },
+      { id: "everton", name: "Everton" },
+      { id: "newcastle-united", name: "Newcastle United" },
+      { id: "west-ham-united", name: "West Ham United" },
+      { id: "leicester-city", name: "Leicester City" },
+      { id: "aston-villa", name: "Aston Villa" },
+      { id: "southampton", name: "Southampton" },
+      { id: "brighton-and-hove-albion", name: "Brighton & Hove Albion" },
+      { id: "crystal-palace", name: "Crystal Palace" },
+      // { id: "leeds-united", name: "Leeds United" },
+      // { id: "burnley", name: "Burnley" },
+      // { id: "sheffield-united", name: "Sheffield United" },
+      { id: "nottingham-forest", name: "Nottingham Forest" },
+      { id: "fulham", name: "Fulham" },
+      { id: "brentford", name: "Brentford" },
+      { id: "wolverhampton-wanderers", name: "Wolverhampton Wanderers" },
+      { id: "afc-bournemouth", name: "AFC Bournemouth" },
+      { id: "ipswich-town", name: "Ipswich Town" },
+    ];
+    setTeams(mockTeams);
+    if (mockTeams.length > 0) {
+      setSelectedTeam(mockTeams[0].id);
+    }
+  }, []);
+
   // useEffect(() => {
   //   if (!selectedTeam) return;
   //   setLoading(true);
@@ -44,9 +78,11 @@ function App() {
     // if (!selectedTeam || !selectedSeason) return;
     setLoading(true);
 
-    const teamName = "bristol-city";
+    // const teamName = "bristol-city";
+    const teamName = selectedTeam;
+
     const teamNameUrn = `urn:bbc:sportsdata:football:team:${teamName}`;
-    const tournamentName = "Championship";
+    const tournamentName = "Premier League"; // "Championship";
 
     const selectedStartDate = "2024-08-01";
     const selectedEndDate = "2025-06-01";
@@ -58,6 +94,8 @@ function App() {
           setError("No results found for the selected team and season.");
           return;
         }
+
+        setError("");
 
         // let teamPointsRunning = 0;
         let teamPointsRunningForChart = 0;
@@ -106,6 +144,8 @@ function App() {
         // setResults(data.results.map((r: any) => r.points));
 
         const relevantResults = teamPointsItems.filter((points) => points !== undefined);
+        relevantResults.unshift(0); // Add initial point for the start of the season
+
         setResults(relevantResults);
       })
       .catch(() => setError("Failed to load results"))
@@ -113,7 +153,7 @@ function App() {
   }, [selectedTeam, selectedSeason]);
 
   return (
-    <div style={{ maxWidth: 600, margin: "2rem auto" }}>
+    <div style={{ maxWidth: 1200, margin: "2rem auto" }}>
       <h1>Football Stats</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <div>

@@ -18,7 +18,7 @@ type Props = {
 
 export const Chart: React.FC<Props> = ({ points }) => {
     const data = {
-        labels: points.map((_, i) => `Game ${i + 1}`),
+        labels: points.map((_, i) => `Game ${i}`),
         datasets: [
             {
                 label: "Points Scored",
@@ -27,8 +27,13 @@ export const Chart: React.FC<Props> = ({ points }) => {
                 backgroundColor: "rgba(75, 192, 192, 0.2)",
                 tension: 0.3
             }
-        ]
+        ],
+        options: { responsive: true, maintainAspectRatio: true }
     };
 
-    return <Line data={data} />;
+    return (
+        <div className="chart-container">
+            <Line data={data} />
+        </div>
+    );
 };
