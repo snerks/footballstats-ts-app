@@ -29,30 +29,64 @@ function App() {
   useEffect(() => {
     // This is a placeholder for fetching teams. Replace with actual fetch logic.
     const mockTeams = [
-      // { id: "bristol-city", name: "Bristol City" },
-      { id: "manchester-united", name: "Manchester United" },
-      { id: "liverpool", name: "Liverpool" },
-      { id: "chelsea", name: "Chelsea" },
-      { id: "arsenal", name: "Arsenal" },
-      { id: "tottenham", name: "Tottenham Hotspur" },
-      { id: "manchester-city", name: "Manchester City" },
-      { id: "everton", name: "Everton" },
-      { id: "newcastle-united", name: "Newcastle United" },
-      { id: "west-ham-united", name: "West Ham United" },
-      { id: "leicester-city", name: "Leicester City" },
-      { id: "aston-villa", name: "Aston Villa" },
-      { id: "southampton", name: "Southampton" },
-      { id: "brighton-and-hove-albion", name: "Brighton & Hove Albion" },
-      { id: "crystal-palace", name: "Crystal Palace" },
-      // { id: "leeds-united", name: "Leeds United" },
-      // { id: "burnley", name: "Burnley" },
-      // { id: "sheffield-united", name: "Sheffield United" },
-      { id: "nottingham-forest", name: "Nottingham Forest" },
-      { id: "fulham", name: "Fulham" },
-      { id: "brentford", name: "Brentford" },
-      { id: "wolverhampton-wanderers", name: "Wolverhampton Wanderers" },
-      { id: "afc-bournemouth", name: "AFC Bournemouth" },
-      { id: "ipswich-town", name: "Ipswich Town" },
+      // // { id: "bristol-city", name: "Bristol City" },
+      // { id: "manchester-united", name: "Manchester United" },
+      // { id: "liverpool", name: "Liverpool" },
+      // { id: "chelsea", name: "Chelsea" },
+      // { id: "arsenal", name: "Arsenal" },
+      // { id: "tottenham", name: "Tottenham Hotspur" },
+      // { id: "manchester-city", name: "Manchester City" },
+      // { id: "everton", name: "Everton" },
+      // { id: "newcastle-united", name: "Newcastle United" },
+      // { id: "west-ham-united", name: "West Ham United" },
+      // { id: "leicester-city", name: "Leicester City" },
+      // { id: "aston-villa", name: "Aston Villa" },
+      // { id: "southampton", name: "Southampton" },
+      // { id: "brighton-and-hove-albion", name: "Brighton & Hove Albion" },
+      // { id: "crystal-palace", name: "Crystal Palace" },
+      // // { id: "burnley", name: "Burnley" },
+      // // { id: "sheffield-united", name: "Sheffield United" },
+      // { id: "nottingham-forest", name: "Nottingham Forest" },
+      // { id: "fulham", name: "Fulham" },
+      // { id: "brentford", name: "Brentford" },
+      // { id: "wolverhampton-wanderers", name: "Wolverhampton Wanderers" },
+      // { id: "afc-bournemouth", name: "AFC Bournemouth" },
+      // { id: "ipswich-town", name: "Ipswich Town" },
+      { id: "leeds-united", name: "Leeds United" },
+      { id: "burnley", name: "Burnley" },
+      { id: "sheffield-united", name: "Sheffield United" },
+      { id: "sunderland", name: "Sunderland" },
+      { id: "coventry-city", name: "Coventry City" },
+      { id: "bristol-city", name: "Bristol City" },
+      { id: "blackburn-rovers", name: "Blackburn Rovers" },
+      { id: "millwall", name: "Millwall" },
+      { id: "west-bromwich-albion", name: "West Bromwich Albion" },
+      { id: "middlesbrough", name: "Middlesbrough" },
+      { id: "swansea-city", name: "Swansea City" },
+      { id: "sheffield-wednesday", name: "Sheffield Wednesday" },
+      { id: "norwich-city", name: "Norwich City" },
+      { id: "watford", name: "Watford" },
+      { id: "queens-park-rangers", name: "Queens Park Rangers" },
+      { id: "portsmouth", name: "Portsmouth" },
+      { id: "oxford-united", name: "Oxford United" },
+      { id: "stoke-city", name: "Stoke City" },
+      { id: "derby-county", name: "Derby County" },
+      { id: "preston-north-end", name: "Preston North End" },
+      { id: "hull-city", name: "Hull City" },
+      { id: "luton-town", name: "Luton Town" },
+      { id: "plymouth-argyle", name: "Plymouth Argyle" },
+      { id: "cardiff-city", name: "Cardiff City" },
+
+      // { id: "birmingham-city", name: "Birmingham City" },
+      // { id: "blackpool", name: "Blackpool" },
+      // { id: "bristol-rovers", name: "Bristol Rovers" },
+      // { id: "swindon-town", name: "Swindon Town" },
+      // { id: "wigan-athletic", name: "Wigan Athletic" },
+      // { id: "barnsley", name: "Barnsley" },
+      // { id: "huddersfield-town", name: "Huddersfield Town" },
+      // { id: "stoke-city", name: "Stoke City" },
+      // { id: "bournemouth", name: "Bournemouth" },
+
     ];
     setTeams(mockTeams);
     if (mockTeams.length > 0) {
@@ -75,6 +109,23 @@ function App() {
   // }, [selectedTeam]);
 
   useEffect(() => {
+    // This is a placeholder for fetching seasons. Replace with actual fetch logic.
+    const mockSeasons = [
+      { id: "2024-2025", name: "2024-25" },
+      { id: "2023-2024", name: "2023-24" },
+      { id: "2022-2023", name: "2022-23" },
+      { id: "2021-2022", name: "2021-22" },
+      { id: "2020-2021", name: "2020-21" },
+    ];
+    setSeasons(mockSeasons);
+    if (mockSeasons.length > 0) {
+      setSelectedSeason(mockSeasons[0].id);
+    }
+  }, []);
+
+  const tournamentName = "Championship";  // "Premier League"; // "Championship";
+
+  useEffect(() => {
     // if (!selectedTeam || !selectedSeason) return;
     setLoading(true);
 
@@ -82,10 +133,12 @@ function App() {
     const teamName = selectedTeam;
 
     const teamNameUrn = `urn:bbc:sportsdata:football:team:${teamName}`;
-    const tournamentName = "Premier League"; // "Championship";
 
-    const selectedStartDate = "2024-08-01";
-    const selectedEndDate = "2025-06-01";
+    const selectedSeasonYearStart = selectedSeason.split("-")[0]; // Extract the year from the season ID
+    const selectedSeasonYearEnd = selectedSeason.split("-")[1]; // Extract the year from the season ID
+
+    const selectedStartDate = `${selectedSeasonYearStart}-08-01`;
+    const selectedEndDate = `${selectedSeasonYearEnd}-06-01`;
 
     // fetchResults(selectedTeam, selectedSeason)
     fetchFixtures(teamNameUrn, selectedStartDate, selectedEndDate)
@@ -154,20 +207,20 @@ function App() {
 
   return (
     <div style={{ maxWidth: 1200, margin: "2rem auto" }}>
-      <h1>Football Stats</h1>
+      <h3>{tournamentName} - Points - Running Total</h3>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <div>
         <label>
-          Team:
-          <select value={selectedTeam} onChange={e => setSelectedTeam(e.target.value)}>
+          <span style={{ marginRight: 8 }}>Team:</span>
+          <select value={selectedTeam} onChange={e => setSelectedTeam(e.target.value)} style={{ fontSize: 16, padding: 4 }}>
             {teams.map(team => (
               <option key={team.id} value={team.id}>{team.name}</option>
             ))}
           </select>
         </label>
         <label style={{ marginLeft: 16 }}>
-          Season:
-          <select value={selectedSeason} onChange={e => setSelectedSeason(e.target.value)}>
+          <span style={{ marginRight: 8 }}>Season:</span>
+          <select value={selectedSeason} onChange={e => setSelectedSeason(e.target.value)} style={{ fontSize: 16, padding: 4 }}>
             {seasons.map(season => (
               <option key={season.id} value={season.id}>{season.name}</option>
             ))}
