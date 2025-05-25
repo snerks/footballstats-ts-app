@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const SeasonSelector: React.FC<Props> = ({ team, value, onChange }) => {
-    const selectedTeam = teams.find(t => t.name === team);
+    const selectedTeam = teams.find(t => t.name.fullName === team);
     if (!selectedTeam) return null;
     return (
         <select value={value} onChange={e => onChange(e.target.value)}>

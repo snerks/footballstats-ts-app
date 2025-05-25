@@ -9,8 +9,8 @@ type Props = {
 export const TeamSelector: React.FC<Props> = ({ value, onChange }) => (
     <select value={value} onChange={e => onChange(e.target.value)}>
         {teams.map(team => (
-            <option key={team.name} value={team.name}>
-                {team.name}
+            <option key={team.name.fullName} value={team.name.fullName}>
+                {team.name.fullName}
             </option>
         ))}
     </select>
