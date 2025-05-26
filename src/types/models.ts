@@ -204,3 +204,8 @@ export interface RunningTotalItem {
   result: string;
   value: number;
 }
+
+export interface PointsInfo {
+	points: number;
+	message: string;
+}

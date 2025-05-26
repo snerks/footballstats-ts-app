@@ -9,20 +9,24 @@ import {
     Tooltip,
     Legend
 } from "chart.js";
+import type { PointsInfo } from "../types/models";
+
+// import { PointsInfo } from ""
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
 type Props = {
-    points: number[];
+    pointsInfoItems: PointsInfo[];
 };
 
-export const Chart: React.FC<Props> = ({ points }) => {
+export const Chart: React.FC<Props> = ({ pointsInfoItems }) => {
     const data = {
-        labels: points.map((_, i) => `Game ${i}`),
+        // labels: pointsInfoItems.map((_, i) => `Game ${i}`),
+        labels: pointsInfoItems.map((item) => `${item.message}`),
         datasets: [
             {
-                label: "Points Scored",
-                data: points,
+                label: "Running Points Total",
+                data: pointsInfoItems.map((item) => item.points),
                 borderColor: "rgb(75, 192, 192)",
                 backgroundColor: "rgba(75, 192, 192, 0.2)",
                 tension: 0.3

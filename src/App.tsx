@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { fetchFixtures } from "./data/bbcApi";
 import { Chart } from "./components/Chart";
 import "./App.css";
-import type { RunningTotalItem } from "./types/models";
+import type { PointsInfo, RunningTotalItem } from "./types/models";
 
 function App() {
   const [teams, setTeams] = useState<any[]>([]);
   const [seasons, setSeasons] = useState<any[]>([]);
-  const [results, setResults] = useState<number[]>([]);
+  const [results, setResults] = useState<PointsInfo[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string>("");
   const [selectedSeason, setSelectedSeason] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -188,7 +188,7 @@ function App() {
 
             runningTotalData.push({ match: ++nameForChartIndex, result: `${event.home.fullName} ${event.home.score} -  ${event.away.score} ${event.away.fullName}`, value: teamPointsRunningForChart });
 
-            return teamPointsRunningForChart;
+            return { points: teamPointsRunningForChart, message: `${event.home.fullName} ${event.home.score} -  ${event.away.score} ${event.away.fullName}` };
           }
 
         });
@@ -196,8 +196,8 @@ function App() {
         // Assume data.results is an array of match objects with a 'points' property
         // setResults(data.results.map((r: any) => r.points));
 
-        const relevantResults = teamPointsItems.filter((points) => points !== undefined);
-        relevantResults.unshift(0); // Add initial point for the start of the season
+        const relevantResults: PointsInfo[] = teamPointsItems.filter((item) => !!item && item.points !== undefined).filter((item) => !!item);
+        relevantResults.unshift({ points: 0, message: "" }); // Add initial point for the start of the season
 
         setResults(relevantResults);
       })
@@ -228,7 +228,7 @@ function App() {
         </label>
       </div>
       <div style={{ marginTop: 32 }}>
-        {loading ? <p>Loading...</p> : results.length > 0 ? <Chart points={results} /> : <p>No data available.</p>}
+        {loading ? <p>Loading...</p> : results.length > 0 ? <Chart pointsInfoItems={results} /> : <p>No data available.</p>}
       </div>
     </div>
   );
